@@ -1,0 +1,20 @@
+---
+import type { ChordSegment } from "../lib/parseSong";
+
+interface Props {
+  segments: ChordSegment[];
+}
+
+const { segments } = Astro.props;
+---
+
+<div class="chord-line">
+  {
+    segments.map((seg) => (
+      <span class={seg.chord ? "segment" : "segment no-chord"}>
+        <span class="chord">{seg.chord || " "}</span>
+        <span class="lyric">{seg.text}</span>
+      </span>
+    ))
+  }
+</div>

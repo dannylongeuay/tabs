@@ -1,0 +1,44 @@
+---
+// Combined "lyrics-only" toggle. Adds/removes `.lyrics-only` on the song
+// <article>, which the stylesheet uses to hide chords, section titles, and the
+// frontmatter header. State persisted in localStorage.
+---
+
+<button
+  id="chord-toggle"
+  class="btn"
+  type="button"
+  aria-pressed="false"
+  title="Show lyrics only"
+>
+  Lyrics only
+</button>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById("chord-toggle");
+    if (!btn) return;
+    var article = document.querySelector("article.song");
+    if (!article) return;
+    var KEY = "lyricsOnly";
+
+    function apply(on) {
+      article.classList.toggle("lyrics-only", on);
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+    }
+
+    var saved = false;
+    try {
+      saved = localStorage.getItem(KEY) === "1";
+    } catch (e) {}
+    apply(saved);
+
+    btn.addEventListener("click", function () {
+      var on = !article.classList.contains("lyrics-only");
+      apply(on);
+      try {
+        localStorage.setItem(KEY, on ? "1" : "0");
+      } catch (e) {}
+    });
+  })();
+</script>

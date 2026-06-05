@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Tabs">
+  <style>
+    /* Catppuccin Mocha (default) */
+    .bg   { fill: #11111b; }
+    .pick { fill: #cba6f7; }
+    .t    { fill: #11111b; }
+    @media (prefers-color-scheme: light) {
+      /* Catppuccin Latte */
+      .bg   { fill: #dce0e8; }
+      .pick { fill: #8839ef; }
+      .t    { fill: #dce0e8; }
+    }
+  </style>
+  <rect class="bg" width="32" height="32" rx="7" />
+  <!-- Guitar pick: rounded top, tapered point -->
+  <path class="pick" d="M16 5
+    C 9.5 5, 5 8.7, 5 13.2
+    C 5 19, 11.5 26, 16 27.5
+    C 20.5 26, 27 19, 27 13.2
+    C 27 8.7, 22.5 5, 16 5 Z" />
+  <!-- Faint 'T' knocked out of the pick -->
+  <path class="t" d="M10.5 10.5 H21.5 V13.4 H17.5 V21 H14.5 V13.4 H10.5 Z" />
+</svg>

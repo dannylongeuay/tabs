@@ -1,0 +1,150 @@
+---
+// Auto-scroll island: a play/pause button plus a continuous speed slider.
+// Uses requestAnimationFrame to scroll by `speed * dt`. Manual scroll, wheel,
+// touch, or arrow/space keys pause it. Stops when the page bottom is reached.
+// Speed is persisted in localStorage.
+---
+
+<div class="auto-scroll">
+  <button id="scroll-toggle" class="btn" type="button" aria-pressed="false">
+    ▶ Scroll
+  </button>
+  <label class="speed">
+    Speed
+    <input
+      id="scroll-speed"
+      type="range"
+      min="10"
+      max="200"
+      step="5"
+      value="40"
+      aria-label="Auto-scroll speed"
+    />
+  </label>
+</div>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById("scroll-toggle");
+    var slider = document.getElementById("scroll-speed");
+    if (!btn || !slider) return;
+    var KEY = "scrollSpeed";
+
+    var saved = NaN;
+    try {
+      saved = parseFloat(localStorage.getItem(KEY));
+    } catch (e) {}
+    if (!isNaN(saved)) slider.value = String(saved);
+
+    var speed = parseFloat(slider.value); // px per second
+    var playing = false;
+    var rafId = null;
+    var lastTs = 0;
+    // Accumulate fractional pixels so slow speeds still scroll smoothly.
+    var carry = 0;
+    // Where we'd be if only our own scrollBy calls had moved the page. Any gap
+    // between this and the real scrollY means the user scrolled, so we stop.
+    // (A synchronous "ignore" flag can't work: scroll events fire async, after
+    // the flag is reset.)
+    var expectedY = 0;
+
+    function atBottom() {
+      return (
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 1
+      );
+    }
+
+    function frame(ts) {
+      if (!playing) return;
+      if (!lastTs) lastTs = ts;
+      var dt = (ts - lastTs) / 1000;
+      lastTs = ts;
+
+      carry += speed * dt;
+      var px = Math.floor(carry);
+      if (px > 0) {
+        carry -= px;
+        window.scrollBy(0, px);
+        expectedY += px;
+      }
+
+      if (atBottom()) {
+        stop();
+        return;
+      }
+      rafId = requestAnimationFrame(frame);
+    }
+
+    function start() {
+      if (playing) return;
+      if (atBottom()) return;
+      playing = true;
+      lastTs = 0;
+      carry = 0;
+      expectedY = window.scrollY;
+      btn.setAttribute("aria-pressed", "true");
+      btn.textContent = "⏸ Pause";
+      rafId = requestAnimationFrame(frame);
+    }
+
+    function stop() {
+      playing = false;
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = null;
+      btn.setAttribute("aria-pressed", "false");
+      btn.textContent = "▶ Scroll";
+    }
+
+    btn.addEventListener("click", function () {
+      if (playing) stop();
+      else start();
+    });
+
+    slider.addEventListener("input", function () {
+      speed = parseFloat(slider.value);
+      try {
+        localStorage.setItem(KEY, String(speed));
+      } catch (e) {}
+    });
+
+    // Any manual interaction pauses auto-scroll.
+    window.addEventListener(
+      "wheel",
+      function () {
+        if (playing) stop();
+      },
+      { passive: true }
+    );
+    window.addEventListener(
+      "touchstart",
+      function () {
+        if (playing) stop();
+      },
+      { passive: true }
+    );
+    window.addEventListener("keydown", function (e) {
+      if (!playing) return;
+      var keys = [
+        "ArrowUp",
+        "ArrowDown",
+        "PageUp",
+        "PageDown",
+        "Home",
+        "End",
+        " ",
+        "Spacebar",
+      ];
+      if (keys.indexOf(e.key) !== -1) stop();
+    });
+    window.addEventListener(
+      "scroll",
+      function () {
+        // A position that drifts from where our own scrolling put us means the
+        // user took over. Small threshold absorbs sub-pixel rounding.
+        if (playing && Math.abs(window.scrollY - expectedY) > 2) stop();
+      },
+      { passive: true }
+    );
+  })();
+</script>

@@ -7,3 +7,17 @@ result-*
 
 # Ignore NixOS interactive test driver history
 **/.nixos-test-history
+
+# build output
+dist/
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

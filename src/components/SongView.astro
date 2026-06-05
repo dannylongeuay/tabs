@@ -1,0 +1,30 @@
+---
+import type { Section } from "../lib/parseSong";
+import { isChordsOnlyRow } from "../lib/parseSong";
+import ChordLyricLine from "./ChordLyricLine.astro";
+
+interface Props {
+  sections: Section[];
+}
+
+const { sections } = Astro.props;
+---
+
+{
+  sections.map((section) => (
+    <section class="section">
+      {section.name && <div class="section-title">{section.name}</div>}
+      {section.rows.map((row) =>
+        isChordsOnlyRow(row) ? (
+          <div class="chords-only">
+            {row.chords.map((c) => (
+              <span class="chord">{c}</span>
+            ))}
+          </div>
+        ) : (
+          <ChordLyricLine segments={row.segments} />
+        ),
+      )}
+    </section>
+  ))
+}

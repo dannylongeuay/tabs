@@ -1,0 +1,34 @@
+---
+title: Scarborough Fair
+artist: Traditional
+album: English Ballad
+key: Am
+capo: 0
+tags:
+  - folk
+  - traditional
+  - english
+---
+
+[Intro]
+Am  Am  C  G  Am
+
+[Verse 1]
+Am                       G            Am
+Are you going to Scarborough Fair?
+C          D              Am
+Parsley, sage, rosemary and thyme
+Am                  C        G          Am
+Remember me to one who lives there
+C            D         Am
+She once was a true love of mine
+
+[Verse 2]
+Am                      G              Am
+Tell her to make me a cambric shirt
+C          D              Am
+Parsley, sage, rosemary and thyme
+Am               C       G            Am
+Without no seam nor needlework
+C          D            Am
+Then she'll be a true love of mine

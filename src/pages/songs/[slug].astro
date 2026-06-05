@@ -1,0 +1,57 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SongView from "../../components/SongView.astro";
+import ChordToggle from "../../components/ChordToggle.astro";
+import AutoScroll from "../../components/AutoScroll.astro";
+
+export async function getStaticPaths() {
+  const songs = await getCollection("songs");
+  return songs.map((song) => ({
+    params: { slug: song.id },
+    props: { song },
+  }));
+}
+
+const { song } = Astro.props;
+const d = song.data;
+
+// Frontmatter-derived header chips, only those actually present.
+const meta: { label: string; value: string }[] = [];
+// Capo 0 means "no capo", so treat it (and an empty string) as absent.
+if (d.capo !== undefined && d.capo !== "" && d.capo !== 0 && d.capo !== "0")
+  meta.push({ label: "Capo", value: String(d.capo) });
+if (d.tuning) meta.push({ label: "Tuning", value: d.tuning });
+if (d.key) meta.push({ label: "Key", value: d.key });
+if (d.album) meta.push({ label: "Album", value: d.album });
+if (d.year !== undefined) meta.push({ label: "Year", value: String(d.year) });
+if (d.source) meta.push({ label: "Source", value: d.source });
+---
+
+<BaseLayout title={`${d.title} — ${d.artist}`}>
+  <div class="song-toolbar">
+    <ChordToggle />
+    <AutoScroll />
+  </div>
+
+  <article class="song" data-pagefind-body>
+    <header class="song-header">
+      <h1 data-pagefind-meta="title">{d.title}</h1>
+      <div class="artist" data-pagefind-meta="artist">{d.artist}</div>
+      {
+        (meta.length > 0 || (d.tags && d.tags.length > 0)) && (
+          <ul class="song-meta">
+            {meta.map((m) => (
+              <li>
+                {m.label}: {m.value}
+              </li>
+            ))}
+            {d.tags?.map((t) => <li>#{t}</li>)}
+          </ul>
+        )
+      }
+    </header>
+
+    <SongView sections={d.sections} />
+  </article>
+</BaseLayout>

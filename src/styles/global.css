@@ -1,0 +1,263 @@
+@import "./catppuccin.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  line-height: 1.5;
+  font-size: 1rem;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Site header (in BaseLayout) */
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+}
+.site-header .brand {
+  font-weight: 700;
+  color: var(--text);
+  font-size: 1.1rem;
+}
+.site-header nav {
+  display: flex;
+  gap: 1rem;
+}
+.site-header .spacer {
+  flex: 1;
+}
+
+/* Generic button styling shared by the islands. */
+.btn {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.7rem;
+  font: inherit;
+  cursor: pointer;
+  line-height: 1;
+}
+.btn:hover {
+  background: var(--surface-hover);
+}
+.btn[aria-pressed="true"] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* --- Song page --- */
+.song-header {
+  margin-bottom: 1.5rem;
+}
+.song-header h1 {
+  margin: 0 0 0.25rem;
+  font-size: 1.6rem;
+}
+.song-header .artist {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+.song-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+  list-style: none;
+  padding: 0;
+}
+.song-meta li {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.1rem 0.6rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.section {
+  margin: 1.25rem 0;
+}
+.section-title {
+  display: inline-block;
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Chord-over-lyric rendering: each segment is inline-block so the chord can
+ * sit above its syllable while lines still wrap responsively. */
+.chord-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  margin: 0.25rem 0;
+}
+.segment {
+  display: inline-flex;
+  flex-direction: column;
+  white-space: pre;
+}
+.segment .chord {
+  color: var(--chord);
+  font-weight: 700;
+  font-size: 0.9rem;
+  line-height: 1.1;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+.segment .lyric {
+  white-space: pre-wrap;
+}
+.segment.no-chord .chord {
+  visibility: hidden;
+}
+
+/* Bare chords (intros / instrumentals). */
+.chords-only {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0.25rem 0;
+}
+.chords-only .chord {
+  color: var(--chord);
+  font-weight: 700;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+/* Lyrics-only mode: hide chords, section titles, and the metadata header. */
+.lyrics-only .chord,
+.lyrics-only .section-title,
+.lyrics-only .song-header,
+.lyrics-only .chords-only {
+  display: none;
+}
+/* Collapse the empty column the hidden chord would otherwise reserve. */
+.lyrics-only .segment {
+  display: inline;
+}
+
+/* --- Toolbar (islands above the song) --- */
+.song-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+  padding: 0.5rem 1rem;
+  margin: 0 -1rem 1rem;
+}
+.song-toolbar .speed {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* --- Directory --- */
+.directory-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.directory-controls input[type="search"] {
+  flex: 1;
+  min-width: 12rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.7rem;
+  font: inherit;
+}
+.song-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.song-list a {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  padding: 0.7rem 0.9rem;
+  color: var(--text);
+}
+.song-list a:hover {
+  border-color: var(--accent);
+  text-decoration: none;
+}
+.song-list .title {
+  font-weight: 600;
+}
+.song-list .meta {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.song-list li[hidden] {
+  display: none;
+}
+
+/* --- Search (Pagefind UI theming) --- */
+:root {
+  --pagefind-ui-primary: var(--accent);
+  --pagefind-ui-text: var(--text);
+  --pagefind-ui-background: var(--bg);
+  --pagefind-ui-border: var(--border);
+  --pagefind-ui-tag: var(--surface);
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 0.5rem;
+  --pagefind-ui-font: inherit;
+}

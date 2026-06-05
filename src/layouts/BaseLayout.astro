@@ -1,0 +1,48 @@
+---
+import "../styles/global.css";
+import ThemeToggle from "../components/ThemeToggle.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const fullTitle = title ? `${title} · Tabs` : "Tabs";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{fullTitle}</title>
+    {description && <meta name="description" content={description} />}
+    <!-- Apply the saved theme before paint to avoid a flash. Default: dark. -->
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "light") {
+            document.documentElement.setAttribute("data-theme", "light");
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a href="/" class="brand">Tabs</a>
+      <nav>
+        <a href="/songs">Songs</a>
+        <a href="/">Search</a>
+      </nav>
+      <span class="spacer"></span>
+      <ThemeToggle />
+    </header>
+    <main class="container">
+      <slot />
+    </main>
+  </body>
+</html>
