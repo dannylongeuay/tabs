@@ -1,34 +1,80 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const songs = await getCollection("songs");
+const items = songs
+  .map((s) => ({
+    slug: s.id,
+    title: s.data.title,
+    artist: s.data.artist,
+    tags: s.data.tags ?? [],
+  }))
+  .sort((a, b) => a.title.localeCompare(b.title));
 ---
 
-<BaseLayout title="Search" description="Search song tabs by title, artist, or lyric.">
-  <h1>Search</h1>
-  <p class="hint">
-    Find a song by title, artist, or a remembered lyric. (The index is built
-    with <code>bun run build</code>; in dev mode run a build first.)
-  </p>
+<BaseLayout title="Songs">
+  <h1>Songs</h1>
 
-  <div id="search"></div>
+  <div class="directory-controls">
+    <input
+      id="filter"
+      type="search"
+      placeholder="Filter by title, artist, or tag…"
+      aria-label="Filter songs"
+    />
+  </div>
 
-  <!-- Pagefind UI assets are emitted into /pagefind during the build. -->
-  <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
-  <script src="/pagefind/pagefind-ui.js" is:inline></script>
-  <script is:inline>
-    window.addEventListener("DOMContentLoaded", function () {
-      if (typeof PagefindUI === "undefined") return;
-      new PagefindUI({
-        element: "#search",
-        showSubResults: true,
-        showImages: false,
-      });
-    });
-  </script>
+  <ul class="song-list" id="song-list">
+    {
+      items.map((s) => (
+        <li
+          data-title={s.title.toLowerCase()}
+          data-artist={s.artist.toLowerCase()}
+          data-tags={s.tags.join(" ").toLowerCase()}
+        >
+          <a href={`/songs/${s.slug}`}>
+            <span class="title">{s.title}</span>
+            <span class="meta">
+              {" — "}
+              {s.artist}
+              {s.tags.length > 0 && ` · ${s.tags.map((t) => "#" + t).join(" ")}`}
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  {items.length === 0 && <p>No songs yet.</p>}
 </BaseLayout>
 
-<style>
-  .hint {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-  }
-</style>
+<script is:inline>
+  (function () {
+    var filter = document.getElementById("filter");
+    var list = document.getElementById("song-list");
+    if (!filter || !list) return;
+    var items = Array.prototype.slice.call(list.querySelectorAll("li"));
+
+    function applyFilter() {
+      var q = filter.value.trim().toLowerCase();
+      var terms = q.split(/\s+/).filter(Boolean);
+      items.forEach(function (li) {
+        var hay =
+          li.getAttribute("data-title") +
+          " " +
+          li.getAttribute("data-artist") +
+          " " +
+          li.getAttribute("data-tags");
+        // Every term must appear somewhere in the haystack, so words can match
+        // across title/artist/tag fields in any order.
+        var matches = terms.every(function (term) {
+          return hay.indexOf(term) !== -1;
+        });
+        li.hidden = !matches;
+      });
+    }
+
+    filter.addEventListener("input", applyFilter);
+  })();
+</script>

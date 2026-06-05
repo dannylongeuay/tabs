@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Search" description="Search song tabs by title, artist, or lyric.">
+  <h1>Search</h1>
+  <p class="hint">
+    Find a song by title, artist, or a remembered lyric. (The index is built
+    with <code>bun run build</code>; in dev the last build's index is served, so
+    run a build once for search to work.)
+  </p>
+
+  <div id="search"></div>
+
+  <!-- Pagefind UI assets are emitted into /pagefind during the build. -->
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+  <script src="/pagefind/pagefind-ui.js" is:inline></script>
+  <script is:inline>
+    window.addEventListener("DOMContentLoaded", function () {
+      if (typeof PagefindUI === "undefined") return;
+      new PagefindUI({
+        element: "#search",
+        showSubResults: true,
+        showImages: false,
+      });
+    });
+  </script>
+</BaseLayout>
+
+<style>
+  .hint {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+</style>
