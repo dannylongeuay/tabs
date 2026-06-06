@@ -1,211 +1,76 @@
 ---
 title: Amazing Grace
-artist: Traditional
+artist: John Newton
 key: G
 capo: 0
-year: 1779
-source: John Newton
 tags:
   - hymn
   - traditional
+  - worship
 ---
 
+[Refrain]
+ G      G7         C         G
+Amazing Grace, how sweet the sound
+             A           D
+That saved a wretch like me!
+  G        G7        C      G
+I once was lost, but now am found,
+    Em         D     G
+Was blind, but now I see.
+ 
+ 
 [Verse 1]
-G                  G7        C        G
-Amazing grace how sweet the sound
-       G                          D
-That saved a wretch like me
-   G              G7      C       G
-I once was lost but now am found
-    Em         D        G
-Was blind but now I see
-
+      G          G7        C        G
+'Twas grace that taught my heart to fear,
+             A       D
+And grace my fears relieved.
+    G        G7       C      G
+How precious did that grace appear,
+    Em     D       G
+The hour I first believed.
+ 
+ 
 [Verse 2]
-G                G7         C          G
-'Twas grace that taught my heart to fear
-      G                         D
-And grace my fears relieved
-   G              G7        C         G
-How precious did that grace appear
-    Em       D          G
-The hour I first believed
+      G      G7       C          G
+Through many dangers, toils and snares
+           A    D
+We have already come
+       G         G7         C          G
+'Twas grace hath brought us safe thus far
+     Em        D       G
+And grace will lead us home
+ 
+ 
+[Verse 3]
+    G        G7       C       G
+The Lord has promised good to me,
+            A      D
+His word my hope secures;
+   G       G7         C       G
+He will my shield and portion be
+   Em      D      G
+as long as life endures.
+ 
+ 
+[Verse 4]
+     G          G7        C        G
+When we've been there ten thousand years,
+               A      D
+Bright shining as the sun,
+      G       G7      C          G
+We've no less days to sing God's praise
+     Em        D       G
+Than when we'd first begun.
+ 
+ 
+[Refrain]
+ G      G7         C         G
+Amazing Grace, how sweet the sound
+             A           D
+That saved a wretch like me!
+  G        G7        C      G
+I once was lost, but now am found,
+    Em         D     G
+Was blind, but now I see.
 
-[Verse 1]
-G                  G7        C        G
-Amazing grace how sweet the sound
-       G                          D
-That saved a wretch like me
-   G              G7      C       G
-I once was lost but now am found
-    Em         D        G
-Was blind but now I see
-
-[Verse 2]
-G                G7         C          G
-'Twas grace that taught my heart to fear
-      G                         D
-And grace my fears relieved
-   G              G7        C         G
-How precious did that grace appear
-    Em       D          G
-The hour I first believed
-
-[Verse 1]
-G                  G7        C        G
-Amazing grace how sweet the sound
-       G                          D
-That saved a wretch like me
-   G              G7      C       G
-I once was lost but now am found
-    Em         D        G
-Was blind but now I see
-
-[Verse 2]
-G                G7         C          G
-'Twas grace that taught my heart to fear
-      G                         D
-And grace my fears relieved
-   G              G7        C         G
-How precious did that grace appear
-    Em       D          G
-The hour I first believed
-
-[Verse 1]
-G                  G7        C        G
-Amazing grace how sweet the sound
-       G                          D
-That saved a wretch like me
-   G              G7      C       G
-I once was lost but now am found
-    Em         D        G
-Was blind but now I see
-
-[Verse 2]
-G                G7         C          G
-'Twas grace that taught my heart to fear
-      G                         D
-And grace my fears relieved
-   G              G7        C         G
-How precious did that grace appear
-    Em       D          G
-The hour I first believed
-
-[Verse 1]
-G                  G7        C        G
-Amazing grace how sweet the sound
-       G                          D
-That saved a wretch like me
-   G              G7      C       G
-I once was lost but now am found
-    Em         D        G
-Was blind but now I see
-
-[Verse 2]
-G                G7         C          G
-'Twas grace that taught my heart to fear
-      G                         D
-And grace my fears relieved
-   G              G7        C         G
-How precious did that grace appear
-    Em       D          G
-The hour I first believed
-
-[Verse 1]
-G                  G7        C        G
-Amazing grace how sweet the sound
-       G                          D
-That saved a wretch like me
-   G              G7      C       G
-I once was lost but now am found
-    Em         D        G
-Was blind but now I see
-
-[Verse 2]
-G                G7         C          G
-'Twas grace that taught my heart to fear
-      G                         D
-And grace my fears relieved
-   G              G7        C         G
-How precious did that grace appear
-    Em       D          G
-The hour I first believed
-
-[Verse 1]
-G                  G7        C        G
-Amazing grace how sweet the sound
-       G                          D
-That saved a wretch like me
-   G              G7      C       G
-I once was lost but now am found
-    Em         D        G
-Was blind but now I see
-
-[Verse 2]
-G                G7         C          G
-'Twas grace that taught my heart to fear
-      G                         D
-And grace my fears relieved
-   G              G7        C         G
-How precious did that grace appear
-    Em       D          G
-The hour I first believed
-
-[Verse 1]
-G                  G7        C        G
-Amazing grace how sweet the sound
-       G                          D
-That saved a wretch like me
-   G              G7      C       G
-I once was lost but now am found
-    Em         D        G
-Was blind but now I see
-
-[Verse 2]
-G                G7         C          G
-'Twas grace that taught my heart to fear
-      G                         D
-And grace my fears relieved
-   G              G7        C         G
-How precious did that grace appear
-    Em       D          G
-The hour I first believed
-
-[Verse 1]
-G                  G7        C        G
-Amazing grace how sweet the sound
-       G                          D
-That saved a wretch like me
-   G              G7      C       G
-I once was lost but now am found
-    Em         D        G
-Was blind but now I see
-
-[Verse 2]
-G                G7         C          G
-'Twas grace that taught my heart to fear
-      G                         D
-And grace my fears relieved
-   G              G7        C         G
-How precious did that grace appear
-    Em       D          G
-The hour I first believed
-
-[Verse 1]
-G                  G7        C        G
-Amazing grace how sweet the sound
-       G                          D
-That saved a wretch like me
-   G              G7      C       G
-I once was lost but now am found
-    Em         D        G
-Was blind but now I see
-
-[Verse 2]
-G                G7         C          G
-'Twas grace that taught my heart to fear
-      G                         D
-And grace my fears relieved
-   G              G7        C         G
-How precious did that grace appear
-    Em       D          G
-The hour I first believed
