@@ -1,0 +1,25 @@
+---
+// Numeric scroll-speed control for the settings sidebar. Markup only — the
+// AutoScroll island binds to these IDs to read/update the speed.
+---
+
+<div class="speed-control">
+  <span class="speed-label">Speed</span>
+  <button
+    id="scroll-dec"
+    class="btn speed-btn"
+    type="button"
+    aria-label="Decrease speed"
+  >
+    −
+  </button>
+  <output id="scroll-speed-value" class="speed-value">40</output>
+  <button
+    id="scroll-inc"
+    class="btn speed-btn"
+    type="button"
+    aria-label="Increase speed"
+  >
+    +
+  </button>
+</div>

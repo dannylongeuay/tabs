@@ -1,42 +1,53 @@
 ---
-// Auto-scroll island: a play/pause button plus a continuous speed slider.
+// Auto-scroll island: a fixed, icon-only play/pause button (bottom-right) plus
+// the scroll engine. Speed is controlled by the numeric +/- control rendered in
+// the settings sidebar (looked up by ID) and persisted per song in localStorage.
 // Uses requestAnimationFrame to scroll by `speed * dt`. Manual scroll, wheel,
 // touch, or arrow/space keys pause it. Stops when the page bottom is reached.
-// Speed is persisted in localStorage.
+
+interface Props {
+  songId: string;
+}
+
+const { songId } = Astro.props;
 ---
 
-<div class="auto-scroll">
-  <button id="scroll-toggle" class="btn" type="button" aria-pressed="false">
-    ▶ Scroll
-  </button>
-  <label class="speed">
-    Speed
-    <input
-      id="scroll-speed"
-      type="range"
-      min="10"
-      max="200"
-      step="5"
-      value="40"
-      aria-label="Auto-scroll speed"
-    />
-  </label>
-</div>
+<button
+  id="scroll-toggle"
+  class="scroll-toggle"
+  type="button"
+  aria-pressed="false"
+  aria-label="Start/stop auto-scroll"
+  title="Auto-scroll"
+>
+  <span class="icon-play">▶</span>
+  <span class="icon-stop" hidden>⏹</span>
+</button>
 
-<script is:inline>
+<script is:inline define:vars={{ songId }}>
   (function () {
     var btn = document.getElementById("scroll-toggle");
-    var slider = document.getElementById("scroll-speed");
-    if (!btn || !slider) return;
-    var KEY = "scrollSpeed";
+    if (!btn) return;
+    var iconPlay = btn.querySelector(".icon-play");
+    var iconStop = btn.querySelector(".icon-stop");
+    var dec = document.getElementById("scroll-dec");
+    var inc = document.getElementById("scroll-inc");
+    var valueEl = document.getElementById("scroll-speed-value");
 
+    var KEY = "scrollSpeed:" + songId;
+    var MIN = 10;
+    var MAX = 200;
+    var STEP = 10;
+    var DEFAULT = 40;
+
+    // Per-song speed, falling back to the legacy global key on first load.
     var saved = NaN;
     try {
       saved = parseFloat(localStorage.getItem(KEY));
+      if (isNaN(saved)) saved = parseFloat(localStorage.getItem("scrollSpeed"));
     } catch (e) {}
-    if (!isNaN(saved)) slider.value = String(saved);
+    var speed = isNaN(saved) ? DEFAULT : saved; // px per second
 
-    var speed = parseFloat(slider.value); // px per second
     var playing = false;
     var rafId = null;
     var lastTs = 0;
@@ -47,6 +58,18 @@
     // (A synchronous "ignore" flag can't work: scroll events fire async, after
     // the flag is reset.)
     var expectedY = 0;
+
+    function clamp(v) {
+      return Math.max(MIN, Math.min(MAX, v));
+    }
+
+    function setSpeed(v) {
+      speed = clamp(v);
+      if (valueEl) valueEl.textContent = String(speed);
+      try {
+        localStorage.setItem(KEY, String(speed));
+      } catch (e) {}
+    }
 
     function atBottom() {
       return (
@@ -84,7 +107,8 @@
       carry = 0;
       expectedY = window.scrollY;
       btn.setAttribute("aria-pressed", "true");
-      btn.textContent = "⏸ Pause";
+      if (iconPlay) iconPlay.hidden = true;
+      if (iconStop) iconStop.hidden = false;
       rafId = requestAnimationFrame(frame);
     }
 
@@ -93,7 +117,8 @@
       if (rafId) cancelAnimationFrame(rafId);
       rafId = null;
       btn.setAttribute("aria-pressed", "false");
-      btn.textContent = "▶ Scroll";
+      if (iconPlay) iconPlay.hidden = false;
+      if (iconStop) iconStop.hidden = true;
     }
 
     btn.addEventListener("click", function () {
@@ -101,12 +126,11 @@
       else start();
     });
 
-    slider.addEventListener("input", function () {
-      speed = parseFloat(slider.value);
-      try {
-        localStorage.setItem(KEY, String(speed));
-      } catch (e) {}
-    });
+    if (dec) dec.addEventListener("click", function () { setSpeed(speed - STEP); });
+    if (inc) inc.addEventListener("click", function () { setSpeed(speed + STEP); });
+
+    // Reflect the initial (persisted) speed in the display.
+    setSpeed(speed);
 
     // Any manual interaction pauses auto-scroll.
     window.addEventListener(
@@ -118,7 +142,17 @@
     );
     window.addEventListener(
       "touchstart",
-      function () {
+      function (e) {
+        // Don't treat taps on our own controls (toggle button, settings) as a
+        // manual scroll — otherwise the toggle would pause here and immediately
+        // re-start on the subsequent click.
+        if (
+          e.target &&
+          e.target.closest &&
+          e.target.closest(".scroll-toggle, .settings")
+        ) {
+          return;
+        }
         if (playing) stop();
       },
       { passive: true }

@@ -4,6 +4,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import SongView from "../../components/SongView.astro";
 import ChordToggle from "../../components/ChordToggle.astro";
 import AutoScroll from "../../components/AutoScroll.astro";
+import SettingsSidebar from "../../components/SettingsSidebar.astro";
+import ScrollSpeedControl from "../../components/ScrollSpeedControl.astro";
 
 export async function getStaticPaths() {
   const songs = await getCollection("songs");
@@ -29,11 +31,6 @@ if (d.source) meta.push({ label: "Source", value: d.source });
 ---
 
 <BaseLayout title={`${d.title} — ${d.artist}`}>
-  <div class="song-toolbar">
-    <ChordToggle />
-    <AutoScroll />
-  </div>
-
   <article class="song" data-pagefind-body>
     <header class="song-header">
       <h1 data-pagefind-meta="title">{d.title}</h1>
@@ -54,4 +51,10 @@ if (d.source) meta.push({ label: "Source", value: d.source });
 
     <SongView sections={d.sections} />
   </article>
+
+  <SettingsSidebar>
+    <ChordToggle />
+    <ScrollSpeedControl />
+  </SettingsSidebar>
+  <AutoScroll songId={song.id} />
 </BaseLayout>

@@ -6,7 +6,7 @@
 
 <button
   id="chord-toggle"
-  class="btn"
+  class="btn lyrics-toggle"
   type="button"
   aria-pressed="false"
   title="Show lyrics only"
@@ -16,29 +16,39 @@
 
 <script is:inline>
   (function () {
-    var btn = document.getElementById("chord-toggle");
-    if (!btn) return;
-    var article = document.querySelector("article.song");
-    if (!article) return;
-    var KEY = "lyricsOnly";
+    function init() {
+      var btn = document.getElementById("chord-toggle");
+      if (!btn) return;
+      // The <article> renders after this toolbar, so look it up once the DOM is
+      // fully parsed rather than while this inline script is reached.
+      var article = document.querySelector("article.song");
+      if (!article) return;
+      var KEY = "lyricsOnly";
 
-    function apply(on) {
-      article.classList.toggle("lyrics-only", on);
-      btn.setAttribute("aria-pressed", on ? "true" : "false");
+      function apply(on) {
+        article.classList.toggle("lyrics-only", on);
+        btn.setAttribute("aria-pressed", on ? "true" : "false");
+      }
+
+      var saved = false;
+      try {
+        saved = localStorage.getItem(KEY) === "1";
+      } catch (e) {}
+      apply(saved);
+
+      btn.addEventListener("click", function () {
+        var on = !article.classList.contains("lyrics-only");
+        apply(on);
+        try {
+          localStorage.setItem(KEY, on ? "1" : "0");
+        } catch (e) {}
+      });
     }
 
-    var saved = false;
-    try {
-      saved = localStorage.getItem(KEY) === "1";
-    } catch (e) {}
-    apply(saved);
-
-    btn.addEventListener("click", function () {
-      var on = !article.classList.contains("lyrics-only");
-      apply(on);
-      try {
-        localStorage.setItem(KEY, on ? "1" : "0");
-      } catch (e) {}
-    });
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
   })();
 </script>

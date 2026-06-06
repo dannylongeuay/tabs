@@ -174,31 +174,105 @@ a:hover {
 .lyrics-only .chords-only {
   display: none;
 }
-/* Collapse the empty column the hidden chord would otherwise reserve. */
+/* Collapse the empty column the hidden chord would otherwise reserve. With the
+ * segment inline (no longer a flex column), the chord-alignment padding spaces
+ * must collapse too, so words split across segments rejoin cleanly. */
 .lyrics-only .segment {
   display: inline;
+  white-space: normal;
+}
+.lyrics-only .segment .lyric {
+  white-space: normal;
 }
 
-/* --- Toolbar (islands above the song) --- */
-.song-toolbar {
-  position: sticky;
-  top: 0;
-  z-index: 5;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem;
-  background: var(--bg-elevated);
-  border-bottom: 1px solid var(--border);
-  padding: 0.5rem 1rem;
-  margin: 0 -1rem 1rem;
+/* --- Floating song controls --- */
+/* Shared round, fixed corner buttons (play/pause + settings cog). */
+.scroll-toggle,
+.settings-cog {
+  position: fixed;
+  bottom: 1rem;
+  z-index: 50;
+  width: 3rem;
+  height: 3rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 999px;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
-.song-toolbar .speed {
+.scroll-toggle:hover,
+.settings-cog:hover {
+  background: var(--surface-hover);
+}
+.scroll-toggle {
+  right: 1rem;
+}
+.scroll-toggle[aria-pressed="true"] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Settings wrapper anchors the popover relative to the cog (bottom-left). */
+.settings {
+  position: fixed;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 50;
+}
+.settings .settings-cog {
+  position: static;
+}
+
+.settings-panel {
+  position: absolute;
+  left: 0;
+  bottom: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 12rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  padding: 0.75rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+/* The .settings-panel display rule above would otherwise override the [hidden]
+ * attribute the toggle script sets, leaving the popover always visible. */
+.settings-panel[hidden] {
+  display: none;
+}
+.settings-panel .lyrics-toggle {
+  width: 100%;
+}
+
+.speed-control {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
+}
+.speed-control .speed-label {
+  margin-right: auto;
   font-size: 0.85rem;
   color: var(--text-muted);
+}
+.speed-control .speed-btn {
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font-size: 1.1rem;
+}
+.speed-control .speed-value {
+  min-width: 2.5rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
 /* --- Directory --- */

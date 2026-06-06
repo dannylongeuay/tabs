@@ -11,9 +11,11 @@ const { segments } = Astro.props;
 <div class="chord-line">
   {
     segments.map((seg) => (
+      // Chord and lyric spans must stay adjacent with no whitespace text node
+      // between them: in lyrics-only mode the segment is inline, so any gap here
+      // would render between lyric chunks and visibly split words apart.
       <span class={seg.chord ? "segment" : "segment no-chord"}>
-        <span class="chord">{seg.chord || " "}</span>
-        <span class="lyric">{seg.text}</span>
+        <span class="chord">{seg.chord || " "}</span><span class="lyric">{seg.text}</span>
       </span>
     ))
   }
