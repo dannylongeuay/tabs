@@ -89,7 +89,12 @@ const { songId } = Astro.props;
       if (px > 0) {
         carry -= px;
         window.scrollBy(0, px);
-        expectedY += px;
+        // Read the actual resulting position rather than accumulating an
+        // idealized integer. On iOS Safari (Retina), scrollY snaps to the
+        // device-pixel grid, so integer scrollBy calls don't move the page by
+        // exactly `px` CSS pixels; accumulating would drift past the threshold
+        // below and falsely stop auto-scroll within a second.
+        expectedY = window.scrollY;
       }
 
       if (atBottom()) {
@@ -176,7 +181,7 @@ const { songId } = Astro.props;
       function () {
         // A position that drifts from where our own scrolling put us means the
         // user took over. Small threshold absorbs sub-pixel rounding.
-        if (playing && Math.abs(window.scrollY - expectedY) > 2) stop();
+        if (playing && Math.abs(window.scrollY - expectedY) > 3) stop();
       },
       { passive: true }
     );
