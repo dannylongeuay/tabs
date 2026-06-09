@@ -40,6 +40,12 @@ a:hover {
   padding: 1rem;
 }
 
+/* Bottom buffer so the last lyric lines clear the fixed floating controls
+ * (settings cog + autoscroll button) at the page bottom. */
+.song {
+  padding-bottom: 5rem;
+}
+
 /* Site header (in BaseLayout) */
 .site-header {
   display: flex;

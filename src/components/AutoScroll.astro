@@ -35,10 +35,10 @@ const { songId } = Astro.props;
     var valueEl = document.getElementById("scroll-speed-value");
 
     var KEY = "scrollSpeed:" + songId;
-    var MIN = 10;
-    var MAX = 200;
-    var STEP = 10;
-    var DEFAULT = 40;
+    var MIN = 2;
+    var MAX = 30;
+    var STEP = 2;
+    var DEFAULT = 10;
 
     // Per-song speed, falling back to the legacy global key on first load.
     var saved = NaN;
