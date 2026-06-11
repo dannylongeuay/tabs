@@ -1,7 +1,7 @@
 ---
 title: Egypt
 artist: Bethel Music
-key: E
+key: G
 capo: 1
 tags:
   - worship

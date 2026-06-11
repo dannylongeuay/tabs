@@ -1,7 +1,7 @@
 ---
 title: Great Are You Lord
 artist: Sons and Daughters
-key: E
+key: G
 capo: 2
 tags:
   - worship
