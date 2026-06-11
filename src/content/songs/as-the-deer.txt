@@ -15,7 +15,7 @@ As the deer panteth for the water
 So my soul longeth after Thee
 C    G             Am     C
 You alone are my heart's desire
-       F  Dm   G       C    G
+       F       G       C    G
 And I long to worship Thee.
  
  
@@ -26,7 +26,7 @@ You alone are my strength my shield
 To You alone may my spirit yield
 C    G             Am     C
 You alone are my heart's desire
-       F  Dm   G       C    G
+       F       G       C    G
 And I long to worship Thee
  
  
@@ -37,7 +37,7 @@ I love you more than gold or silver
 Only You can satisfy
 C    G            Am       C
 You alone are the real joy giver
-        F  Dm  G    C    G
+        F      G    C    G
 And the apple of my eye
  
  
@@ -48,18 +48,18 @@ You alone are my strength my shield
 To You alone may my spirit yield
 C    G             Am     C
 You alone are my heart's desire
-       F  Dm   G       C    G
+       F       G       C    G
 And I long to worship Thee
  
  
 [Verse 3]
 C         G              Am     C
 You're my friend and you are my brother
-     F          G     C   G     F
+     F          G     C   G
 Even though you are a king
 C      G             Am       C
 I love you more than any other
-        F    Dm   G  C    G
+        F         G  C    G
 So much more than anything
  
  
@@ -70,5 +70,5 @@ You alone are my strength my shield
 To You alone may my spirit yield
 C    G             Am     C
 You alone are my heart's desire
-       F  Dm   G       C
+       F       G       C
 And I long to worship Thee
