@@ -331,7 +331,9 @@ a:hover {
 }
 
 /* --- Search (Pagefind UI theming) --- */
-:root {
+/* Scope to #search (specificity 1,0,0) so these win over Pagefind's own
+   :root defaults regardless of stylesheet load order. */
+#search {
   --pagefind-ui-primary: var(--accent);
   --pagefind-ui-text: var(--text);
   --pagefind-ui-background: var(--bg);
@@ -340,4 +342,13 @@ a:hover {
   --pagefind-ui-border-width: 1px;
   --pagefind-ui-border-radius: 0.5rem;
   --pagefind-ui-font: inherit;
+}
+
+/* Brighten matched-text highlights in dark mode (light mode keeps the
+   browser default, which already reads well). */
+:root:not([data-theme="light"]) #search mark {
+  background-color: var(--ctp-yellow);
+  color: var(--ctp-crust);
+  border-radius: 0.2em;
+  padding: 0 0.15em;
 }
